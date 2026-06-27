@@ -1,0 +1,412 @@
+[
+    {
+        "timestamp": "2026-06-26T13:28:48.317307",
+        "prompt": "Create a python file with a button.",
+        "stages": {
+            "stt_seconds": 1.227,
+            "llm_seconds": 2.299,
+            "tts_seconds": 27.38
+        },
+        "total_seconds": 46.089
+    },
+    {
+        "timestamp": "2026-06-26T13:41:42.854120",
+        "prompt": "hi",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 2.206,
+            "tts_seconds": 0
+        },
+        "total_seconds": 2.206
+    },
+    {
+        "timestamp": "2026-06-26T13:41:53.689648",
+        "prompt": "who are you",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 3.967,
+            "tts_seconds": 0
+        },
+        "total_seconds": 3.967
+    },
+    {
+        "timestamp": "2026-06-26T13:42:10.112403",
+        "prompt": "write a react code for website",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 2.448,
+            "tts_seconds": 0
+        },
+        "total_seconds": 2.448
+    },
+    {
+        "timestamp": "2026-06-26T13:51:31.165828",
+        "prompt": "write a code react website",
+        "stages": {
+            "stt_seconds": 0.899,
+            "llm_seconds": 2.533,
+            "tts_seconds": 47.589
+        },
+        "total_seconds": 63.301
+    },
+    {
+        "timestamp": "2026-06-26T13:52:18.675295",
+        "prompt": "Who is Steve Jobs?",
+        "stages": {
+            "stt_seconds": 0.76,
+            "llm_seconds": 2.487,
+            "tts_seconds": 36.172
+        },
+        "total_seconds": 47.506
+    },
+    {
+        "timestamp": "2026-06-26T13:53:31.803909",
+        "prompt": "What else can you do?",
+        "stages": {
+            "stt_seconds": 0.96,
+            "llm_seconds": 3.471,
+            "tts_seconds": 57.109
+        },
+        "total_seconds": 73.125
+    },
+    {
+        "timestamp": "2026-06-26T13:55:09.432633",
+        "prompt": "Imagine the India if the Britishers never left and tell me this scenario as a story like you are narrating a novel.",
+        "stages": {
+            "stt_seconds": 0.804,
+            "llm_seconds": 1.359,
+            "tts_seconds": 76.318
+        },
+        "total_seconds": 97.626
+    },
+    {
+        "timestamp": "2026-06-26T13:55:22.312894",
+        "prompt": ".",
+        "stages": {
+            "stt_seconds": 0.772,
+            "llm_seconds": 2.127,
+            "tts_seconds": 6.949
+        },
+        "total_seconds": 12.878
+    },
+    {
+        "timestamp": "2026-06-26T13:55:39.270789",
+        "prompt": "I think we should build today.",
+        "stages": {
+            "stt_seconds": 0.774,
+            "llm_seconds": 0.626,
+            "tts_seconds": 9.318
+        },
+        "total_seconds": 16.957
+    },
+    {
+        "timestamp": "2026-06-27T22:09:40.276155",
+        "prompt": "do u know maths",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 0.976,
+            "tts_seconds": 0
+        },
+        "total_seconds": 0.976
+    },
+    {
+        "timestamp": "2026-06-27T22:09:55.108516",
+        "prompt": "what is the value of x when the equation is x + 5 = 10",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 0.626,
+            "tts_seconds": 0
+        },
+        "total_seconds": 0.626
+    },
+    {
+        "timestamp": "2026-06-27T22:10:25.389756",
+        "prompt": "what is the value of an integral where the variable is x to the power of 5 with limit 10 to 10",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 2.382,
+            "tts_seconds": 0
+        },
+        "total_seconds": 2.382
+    },
+    {
+        "timestamp": "2026-06-27T22:10:34.084873",
+        "prompt": "good",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 1.153,
+            "tts_seconds": 0
+        },
+        "total_seconds": 1.153
+    },
+    {
+        "timestamp": "2026-06-27T22:10:45.850559",
+        "prompt": "u did a good job",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 1.016,
+            "tts_seconds": 0
+        },
+        "total_seconds": 1.016
+    },
+    {
+        "timestamp": "2026-06-27T22:10:54.241664",
+        "prompt": "who am i\\",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 1.19,
+            "tts_seconds": 0
+        },
+        "total_seconds": 1.19
+    },
+    {
+        "timestamp": "2026-06-27T22:11:21.009670",
+        "prompt": "who are you",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 2.406,
+            "tts_seconds": 0
+        },
+        "total_seconds": 2.406
+    },
+    {
+        "timestamp": "2026-06-27T22:13:00.755181",
+        "prompt": "hi",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 2.148,
+            "tts_seconds": 0
+        },
+        "total_seconds": 2.148
+    },
+    {
+        "timestamp": "2026-06-27T22:13:00.756167",
+        "prompt": "hi",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 2.148,
+            "tts_seconds": 0
+        },
+        "total_seconds": 2.148
+    },
+    {
+        "timestamp": "2026-06-27T22:13:06.399076",
+        "prompt": "how are you",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 0.698,
+            "tts_seconds": 0
+        },
+        "total_seconds": 0.698
+    },
+    {
+        "timestamp": "2026-06-27T22:13:06.400011",
+        "prompt": "how are you",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 0.698,
+            "tts_seconds": 0
+        },
+        "total_seconds": 0.698
+    },
+    {
+        "timestamp": "2026-06-27T22:13:20.024071",
+        "prompt": "write a react program for me",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 1.746,
+            "tts_seconds": 0
+        },
+        "total_seconds": 1.746
+    },
+    {
+        "timestamp": "2026-06-27T22:13:20.025248",
+        "prompt": "write a react program for me",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 1.746,
+            "tts_seconds": 0
+        },
+        "total_seconds": 1.746
+    },
+    {
+        "timestamp": "2026-06-27T22:13:38.046708",
+        "prompt": "ok good",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 0.821,
+            "tts_seconds": 0
+        },
+        "total_seconds": 0.821
+    },
+    {
+        "timestamp": "2026-06-27T22:13:38.047833",
+        "prompt": "ok good",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 0.821,
+            "tts_seconds": 0
+        },
+        "total_seconds": 0.821
+    },
+    {
+        "timestamp": "2026-06-27T22:13:43.348720",
+        "prompt": "nothing quit",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 0.531,
+            "tts_seconds": 0
+        },
+        "total_seconds": 0.531
+    },
+    {
+        "timestamp": "2026-06-27T22:13:43.349928",
+        "prompt": "nothing quit",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 0.531,
+            "tts_seconds": 0
+        },
+        "total_seconds": 0.531
+    },
+    {
+        "timestamp": "2026-06-27T22:16:21.102302",
+        "prompt": "write a react website with complete css for my portfolio name ashutosh goyal and study engineering",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 7.496,
+            "tts_seconds": 0
+        },
+        "total_seconds": 7.496
+    },
+    {
+        "timestamp": "2026-06-27T22:16:21.103638",
+        "prompt": "write a react website with complete css for my portfolio name ashutosh goyal and study engineering",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 7.496,
+            "tts_seconds": 0
+        },
+        "total_seconds": 7.496
+    },
+    {
+        "timestamp": "2026-06-27T22:20:06.091953",
+        "prompt": "create a react website with a portfolio name ashutosh goyal and write good things give the code onyl no responser",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 4.648,
+            "tts_seconds": 0
+        },
+        "total_seconds": 4.648
+    },
+    {
+        "timestamp": "2026-06-27T22:20:06.092813",
+        "prompt": "create a react website with a portfolio name ashutosh goyal and write good things give the code onyl no responser",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 4.648,
+            "tts_seconds": 0
+        },
+        "total_seconds": 4.648
+    },
+    {
+        "timestamp": "2026-06-27T22:20:22.711121",
+        "prompt": "\u001b[A\u001b[B\u001b[B\u001b[B\u001b[A\u001b[A\u001b[D\u001b[D",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 4.756,
+            "tts_seconds": 0
+        },
+        "total_seconds": 4.756
+    },
+    {
+        "timestamp": "2026-06-27T22:20:22.711990",
+        "prompt": "\u001b[A\u001b[B\u001b[B\u001b[B\u001b[A\u001b[A\u001b[D\u001b[D",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 4.756,
+            "tts_seconds": 0
+        },
+        "total_seconds": 4.756
+    },
+    {
+        "timestamp": "2026-06-27T22:21:16.107533",
+        "prompt": "create a react website for portfolio with ashutosh goyal as name and some details and feature it should be as modern as ",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 5.881,
+            "tts_seconds": 0
+        },
+        "total_seconds": 5.881
+    },
+    {
+        "timestamp": "2026-06-27T22:21:16.108909",
+        "prompt": "create a react website for portfolio with ashutosh goyal as name and some details and feature it should be as modern as ",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 5.881,
+            "tts_seconds": 0
+        },
+        "total_seconds": 5.881
+    },
+    {
+        "timestamp": "2026-06-27T23:13:06.970401",
+        "prompt": "write a html css js code",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 8.01,
+            "tts_seconds": 0
+        },
+        "total_seconds": 8.01
+    },
+    {
+        "timestamp": "2026-06-27T23:13:06.971686",
+        "prompt": "write a html css js code",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 8.01,
+            "tts_seconds": 0
+        },
+        "total_seconds": 8.01
+    },
+    {
+        "timestamp": "2026-06-27T23:15:20.496542",
+        "prompt": "make a html css js portfolio wesbite for me ashutosh goyal with detail as student in college coding like steve job and a",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 60.592,
+            "tts_seconds": 0
+        },
+        "total_seconds": 60.592
+    },
+    {
+        "timestamp": "2026-06-27T23:15:20.497704",
+        "prompt": "make a html css js portfolio wesbite for me ashutosh goyal with detail as student in college coding like steve job and a",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 60.592,
+            "tts_seconds": 0
+        },
+        "total_seconds": 60.592
+    },
+    {
+        "timestamp": "2026-06-27T23:17:19.353588",
+        "prompt": "make a html css js portfolio wesbite for me ashutosh goyal with detail as student in college coding like steve job and a",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 44.787,
+            "tts_seconds": 0
+        },
+        "total_seconds": 44.787
+    },
+    {
+        "timestamp": "2026-06-27T23:17:19.354930",
+        "prompt": "make a html css js portfolio wesbite for me ashutosh goyal with detail as student in college coding like steve job and a",
+        "stages": {
+            "stt_seconds": 0,
+            "llm_seconds": 44.787,
+            "tts_seconds": 0
+        },
+        "total_seconds": 44.787
+    }
+]

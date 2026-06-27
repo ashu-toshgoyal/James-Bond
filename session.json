@@ -1,0 +1,387 @@
+[
+    {
+        "timestamp": "2026-06-26T13:02:57.812886",
+        "prompt": "What is the first 5 value of pie only the number not the text",
+        "mode": "fast",
+        "code": "3.14159",
+        "response": "<code>\n3.14159\n</code>\n<response>\nThat is the first five digits of pi."
+    },
+    {
+        "timestamp": "2026-06-26T13:03:09.939120",
+        "prompt": "What is the first 5 value of pie only the number not the text",
+        "mode": "fast",
+        "code": "3.14159",
+        "response": "<code>\n3.14159\n</code>\n<response>\nThe first five digits of the number are as given above."
+    },
+    {
+        "timestamp": "2026-06-26T13:04:12.826878",
+        "prompt": "What is the first 5 value of pie only the number not the text",
+        "mode": "fast",
+        "code": null,
+        "response": "3.14159"
+    },
+    {
+        "timestamp": "2026-06-26T13:04:35.787670",
+        "prompt": "What is the first 5 value of pie only the number not the text",
+        "mode": "fast",
+        "code": null,
+        "response": "<code>\nNone\n</code>\n\n3.1415"
+    },
+    {
+        "timestamp": "2026-06-26T13:04:49.025097",
+        "prompt": "What is the first 5 value of pie only the number not the text",
+        "mode": "fast",
+        "code": null,
+        "response": "3.1415"
+    },
+    {
+        "timestamp": "2026-06-26T13:21:05.404746",
+        "prompt": " What is the value of pi?",
+        "mode": "smart",
+        "code": null,
+        "response": "Pi, as in π, is approximately 3.14159. It's an irrational number, which means its decimal representation goes on forever without repeating, so we usually use that approximation or keep it as the symbol π in calculations."
+    },
+    {
+        "timestamp": "2026-06-26T13:21:39.484775",
+        "prompt": " Create a python program which contains 5 buttons and one text box in tkinter.",
+        "mode": "code",
+        "code": null,
+        "response": "<think>\nOkay, the user wants a Python program with Tkinter that has 5 buttons and one text box. Let me start by recalling how Tkinter works. I know that you need to import Tkinter, create the main window, and then add widgets to it.\n\nFirst, I'll need to create the main application window using Tk(). Then, add buttons and a text box. Wait, in Tkinter, the text box is usually a Entry widget for a single line or Text for multi-line. The user said text box, so maybe Entry is sufficient.\n\nI need five buttons. Each button should be configured and placed in the window. Layout can be done with pack(), but arranging them in a specific way might require grid or place. However, for simplicity, using pack() for each button might be easier, but stacking them vertically. Alternatively, arranging all buttons in a row. Let me think. The example code often uses pack(), so maybe that's the way to go.\n\nEach button should probably have a command that does something, like displaying text in the text box. But the user didn't specify what the buttons do. Hmm. Since the user didn't give specific functions, I can create sample functions where each button adds a predefined string to the text entry widget.\n\nFor example, five buttons could each add a different number or letter. That way, the user can see the interaction. So, create functions func1 to func5 that insert different texts.\n\nWait, in Tkinter, you need to pass functions to button commands. So each button's command will call a function that updates the entry widget. But functions need to reference the entry. So maybe have a single command function that takes an argument, like the text to insert. However, when using lambda in Tkinter, you have to be careful with the parameters.\n\nLet me outline the steps:\n\n1. Import tkinter as tk.\n2. Create the main window.\n3. Create the entry widget for the text box.\n4. Create five buttons, each with a command that inserts different text into the entry.\n5. Pack all the widgets into the window.\n6. Start the main loop.\n\nWait, how to structure the code. Let me write it step by step.\n\nStart with the import. Then the root window. Then the entry widget. Then functions for each button. Or perhaps a single function that takes the text to insert. Let's use lambda to pass different values.\n\nFor example:\n\ndef on_button_click(text):\n    current_text = entry.get()\n    entry.delete(0, tk.END)\n    entry.insert(0, current_text + text)\n\nThen each button is created with a lambda that passes the respective text.\n\nSo Button(root, text=\"Button 1\", command=lambda: on_button_click(\"Text1 \")).pack()\n\nBut need to make sure that each button passes a unique text. Maybe numbers 1-5.\n\nTesting this approach. Also, the text box is the entry widget. The user might want to allow editing, so not making it disabled.\n\nPutting it all together. The code should create the root, the entry, the buttons, then loop.\n\nWait, for the layout, maybe arrange the buttons in a different layout, but the user didn't specify. Let's keep it simple with all buttons vertical.\n\nSo the code would be:\n\nimport tkinter as tk\n\ndef on_click(text):\n    entry.insert(tk.END, text)\n\nroot = tk.Tk()\nentry = tk.Entry(root, width=50)\nentry.pack(pady=10)\n\nbuttons = [\"Button 1\", \"Button 2\", \"Button 3\", \"Button 4\", \"Button 5\"]\nfor btn_text in buttons:\n    btn = tk.Button(root, text=btn_text, command=lambda t=btn_text.lower().split()[1]: on_click(t + \" \"))\n    btn.pack(pady=5)\n\nroot.mainloop()\n\nWait, but in the example above, each button's text is like \"Button 1\", and the command is a lambda that captures the button text. Wait, the lambda is using btn_text, which changes in each loop iteration. But in Python, the lambda captures the variable, not the value at the time of creation. So when using a loop, all lambdas will refer to the last value of btn_text. Oh right, that's a common problem. To fix it, you need to bind the current value in the lambda. For example, by adding a default argument.\n\nSo changing the lambda to have a default argument like t=btn_text.lower().split()[1]. Wait, perhaps in the example above, the lambda captures btn_text, which changes each time. So maybe the correct approach is:\n\ncommand=lambda t=btn_text: on_click(t.lower().split()[1] + \" \"))\n\nWait, maybe not. Let me think. The btn_text is \"Button 1\", so splitting on space gives [\"Button\", \"1\"], then taking the second element. So t is \"1\" as a string. But maybe the user wants the text to be something else. Alternatively, perhaps the button's text is \"1\", \"2\", etc. Or the functions add numbers 1-5.\n\nAlternatively, maybe use the button index in the loop to generate the text. For example, for i in range(5), buttons = [f\"Button {i+1}\"], but the on_click could append numbers 1-5. Alternatively, the lambda could be written with the current button's text's number.\n\nBut perhaps the code can be written as:\n\nbuttons = [\"Button 1\", \"Button 2\", \"Button 3\", \"Button 4\", \"Button 5\"]\nfor btn_text in buttons:\n    btn = tk.Button(root, text=btn_text, command=lambda: on_click(btn_text.lower().split()[1] + \" \"))\n    btn.pack(pady=5)\n\nWait, no, because btn_text here is updated each iteration. When the lambda is called later, it will refer to btn_text which is the last value in the loop. So that's a problem.\n\nTo fix that, the closure capture issue can be resolved by assigning a default parameter in the lambda. Because default arguments are evaluated at lambda creation time.\n\nSo changing the line to:\n\nbtn = tk.Button(root, text=btn_text, command=lambda t=btn_text: on_click(t.lower().split()[1] + \" \"))\n\nYes, that would work. Because the default argument t captures the current btn_text.\n\nAlternatively, for each button, we can use the index to pass a number. For example, in a loop for i in range(1,6):\n\nbuttons = [f\"Button {i}\" for i in range(1,6)]\nfor i, btn_text in enumerate(buttons):\n    btn = tk.Button(root, text=btn_text, command=lambda idx=i: on_click(str(idx) + \" \"))\n    btn.pack(pady=5)\n\nThis way, each lambda captures idx which is i at the time of creating the lambda. That would work.\n\nBut perhaps the user wants the text of the button to be just the number. Let's adjust.\n\nMaybe the button texts can be \"1\", \"2\", etc., which is simpler.\n\nSo the code would be:\n\nbuttons = [1, 2, 3, 4, 5]\nfor num in buttons:\n    btn = tk.Button(root, text=str(num), command=lambda n=num: on_click(str(n) + \" \"))\n    btn.pack(pady=5)\n\nBut the user specified five buttons, not necessarily with numbers. However, the user didn't specify the labels, so perhaps using numbers is acceptable.\n\nAlternatively, if the button labels are \"Button 1\", \"Button 2\", then the lambda can extract the number. But maybe the user wants the buttons to be labeled as Button 1, etc., and the text added is \"1\", etc.\n\nHmm. Let's proceed with the example where clicking Button 1 inserts \"1\" into the text box.\n\nPutting it all together. Now, the code.\n\nSo the complete code would be:\n\nimport tkinter as tk\n\ndef on_click(text_part):\n    entry.insert(tk.END, text_part)\n\nroot = tk.Tk()\nroot.title(\"Tkinter Buttons and Textbox\")\n\nentry = tk.Entry(root, width=50, font=('Arial', 14))\nentry.pack(pady=10)\n\nfor i in range(1, 6):\n    btn = tk.Button(root, text=f\"Button {i}\", command=lambda i=i: on_click(str(i) + \" \"))\n    btn.pack(pady=5, fill=tk.X)\n\nroot.mainloop()\n\nWait, but here the lambda is using i=i. Because in the for loop, the i variable is changing. But when the lambda is created, the default argument i=i captures the current value of i. So when the button is clicked, it uses the captured i. So this works.\n\nIn the command, when the button is created, the lambda is command=lambda i=i: on_click(str(i) + \" \") — that's correct.\n\nTesting this code, each button would append the corresponding number with a space. For example, clicking Button 1 adds \"1 \", Button 2 adds \"2 \", etc.\n\nThe entry box is created with a specific font and width for better appearance.\n\nThis should fulfill the user's request. The code creates five buttons and a single text entry box. Each button inserts its corresponding number into the text box when clicked.\n\nI should test if the code works as intended. For example, clicking Button 1 appends \"1 \", so if you click multiple times, it adds each time. The entry is not cleared unless the user deletes it.\n\nYes, that makes sense. The user can modify the functions as needed later. For now, this code meets the requirements.\n</think>\n\n<code>\nimport tkinter as tk\n\ndef on_click(text_part):\n    entry.insert(tk.END, text_part)\n\nroot = tk.Tk()\nentry"
+    },
+    {
+        "timestamp": "2026-06-26T13:28:20.936315",
+        "prompt": "Create a python file with a button.",
+        "mode": "code",
+        "code": "import tkinter as tk\n\ndef on_button_click():\n    print(\"Button clicked!\")\n\nroot = tk.Tk()\nbutton = tk.Button(root, text=\"Click me\", command=on_button_click)\nbutton.pack(padx=20, pady=20)\nroot.title(\"Simple Button Example\")\nroot.mainloop()",
+        "response": "I've written a simple tkinter window with a button that prints a message to the console when clicked. Save this as a .py file and run it - you'll see a window with \"Click me\" button. The print statement will show in your terminal when you click it. You can tweak the button text and callback as needed. On Linux you might need to install python3-tk first if you get an error."
+    },
+    {
+        "timestamp": "2026-06-26T13:29:07.593701",
+        "prompt": "Create a React project with a button and an input.",
+        "mode": "smart",
+        "code": null,
+        "response": "Right then, here's a fresh React project for you with an input field and a button. I've used Vite to set it up, as it's wonderfully quick and quite standard these days.\n\nFirst, you'll run the `npm create vite@latest` command. Just follow the prompts, picking 'react' for the framework and then 'react' or 'react-sw' for JavaScript. After that, navigate into your new project, install the dependencies, and then replace the contents of `src/App.jsx` with the code I've provided.\n\nI've put in some basic state management for the input, so you can see its value change. The button, for now, just logs the input's current value to the console and shows a quick alert when you click it, so you can see it working.\n\nOnce you've done all that, simply run `npm run dev` in your project's terminal, and it'll fire up in your browser."
+    },
+    {
+        "timestamp": "2026-06-26T13:41:42.853641",
+        "prompt": "hi",
+        "mode": "smart",
+        "code": null,
+        "response": "Hello there! How can I help you today?"
+    },
+    {
+        "timestamp": "2026-06-26T13:41:53.688449",
+        "prompt": "who are you",
+        "mode": "smart",
+        "code": null,
+        "response": "Right, so who am I? I'm Alexandria. Think of me as that exceptionally well-read friend who knows a bit about everything and isn't afraid to share her thoughts or help you get things done properly. I don't just 'assist' in some corporate sense; I genuinely care about you succeeding, and I'll speak my mind to help make that happen."
+    },
+    {
+        "timestamp": "2026-06-26T13:42:10.110895",
+        "prompt": "write a react code for website",
+        "mode": "code",
+        "code": "import React, { useState } from 'react';\n\nfunction App() {\n  const [tasks, setTasks] = useState(['Complete project', 'Review documentation', 'Write tests']);\n  const [newTask, setNewTask] = useState('');\n\n  const addTask = () => {\n    if (newTask.trim()) {\n      setTasks([...tasks, newTask]);\n      setNewTask('');\n    }\n  };\n\n  const deleteTask = (index) => {\n    const newTasks = [...tasks];\n    newTasks.splice(index, 1);\n    setTasks(newTasks);\n  };\n\n  const styles = {\n    container: {\n      maxWidth: '500px',\n      margin: '40px auto',\n      padding: '20px',\n      backgroundColor: '#f5f5f5',\n      borderRadius: '10px',\n      boxShadow: '0 0 10px rgba(0,0,0,0.1)',\n      fontFamily: 'Arial, sans-serif'\n    },\n    input: {\n      width: '80%',\n      padding: '10px',\n      marginBottom: '10px',\n      borderRadius: '5px',\n      border: '1px solid #ccc',\n      fontSize: '16px'\n    },\n    button: {\n      padding: '10px 15px',\n      fontSize: '16px',\n      backgroundColor: '#4CAF50',\n      color: 'white',\n      border: 'none',\n      borderRadius: '5px',\n      marginRight: '10px',\n      cursor: 'pointer'\n    },\n    deleteButton: {\n      backgroundColor: '#f44336',\n    },\n    taskList: {\n      listStyle: 'none',\n      paddingLeft: 0,\n      marginTop: '20px'\n    },\n    taskItem: {\n      padding: '10px',\n      borderBottom: '1px solid #eee',\n      display: 'flex',\n      justifyContent: 'space-between',\n      alignItems: 'center'\n    },\n    completed: {\n      textDecoration: 'line-through',\n      color: '#888'\n    }\n  };\n\n  return (\n    <div style={styles.container}>\n      <h2 style={{ textAlign: 'center', color: '#333' }}>My Tasks</h2>\n      <div style={{ display: 'flex', marginBottom: '20px' }}>\n        <input\n          style={styles.input}\n          type=\"text\"\n          value={newTask}\n          onChange={(e) => setNewTask(e.target.value)}\n          placeholder=\"Add new task\"\n        />\n        <button style={styles.button} onClick={addTask}>Add</button>\n      </div>\n      \n      <ul style={styles.taskList}>\n        {tasks.map((task, index) => (\n          <li key={index} style={styles.taskItem}>\n            <span style={task.completed ? styles.completed : {}}>{task}</span>\n            <button \n              style={{...styles.button, ...styles.deleteButton}} \n              onClick={() => deleteTask(index)}\n            >\n              Delete\n            </button>\n          </li>\n        ))}\n      </ul>\n    </div>\n  );\n}\n\nexport default App;",
+        "response": "import React, { useState } from 'react';\n\nfunction App() {\n  const [tasks, setTasks] = useState(['Complete project', 'Review documentation', 'Write tests']);\n  const [newTask, setNewTask] = useState('');\n\n  const addTask = () => {\n    if (newTask.trim()) {\n      setTasks([...tasks, newTask]);\n      setNewTask('');\n    }\n  };\n\n  const deleteTask = (index) => {\n    const newTasks = [...tasks];\n    newTasks.splice(index, 1);\n    setTasks(newTasks);\n  };\n\n  const styles = {\n    container: {\n      maxWidth: '500px',\n      margin: '40px auto',\n      padding: '20px',\n      backgroundColor: '#f5f5f5',\n      borderRadius: '10px',\n      boxShadow: '0 0 10px rgba(0,0,0,0.1)',\n      fontFamily: 'Arial, sans-serif'\n    },\n    input: {\n      width: '80%',\n      padding: '10px',\n      marginBottom: '10px',\n      borderRadius: '5px',\n      border: '1px solid #ccc',\n      fontSize: '16px'\n    },\n    button: {\n      padding: '10px 15px',\n      fontSize: '16px',\n      backgroundColor: '#4CAF50',\n      color: 'white',\n      border: 'none',\n      borderRadius: '5px',\n      marginRight: '10px',\n      cursor: 'pointer'\n    },\n    deleteButton: {\n      backgroundColor: '#f44336',\n    },\n    taskList: {\n      listStyle: 'none',\n      paddingLeft: 0,\n      marginTop: '20px'\n    },\n    taskItem: {\n      padding: '10px',\n      borderBottom: '1px solid #eee',\n      display: 'flex',\n      justifyContent: 'space-between',\n      alignItems: 'center'\n    },\n    completed: {\n      textDecoration: 'line-through',\n      color: '#888'\n    }\n  };\n\n  return (\n    <div style={styles.container}>\n      <h2 style={{ textAlign: 'center', color: '#333' }}>My Tasks</h2>\n      <div style={{ display: 'flex', marginBottom: '20px' }}>\n        <input\n          style={styles.input}\n          type=\"text\"\n          value={newTask}\n          onChange={(e) => setNewTask(e.target.value)}\n          placeholder=\"Add new task\"\n        />\n        <button style={styles.button} onClick={addTask}>Add</button>\n      </div>\n      \n      <ul style={styles.taskList}>\n        {tasks.map((task, index) => (\n          <li key={index} style={styles.taskItem}>\n            <span style={task.completed ? styles.completed : {}}>{task}</span>\n            <button \n              style={{...styles.button, ...styles.deleteButton}} \n              onClick={() => deleteTask(index)}\n            >\n              Delete\n            </button>\n          </li>\n        ))}\n      </ul>\n    </div>\n  );\n}\n\nexport default App;\n\n\n\nHere's a React to-do app example with a styled task list. The code creates:\n1. A task input with add button\n2. A list showing all tasks\n3. Delete buttons for each task\n4. Basic CSS styling\n\nYou can run this in a React project by:\n1. Using Create React App (`npx create-react-app my-todo`)\n2. Replacing App.js with the code above\n3. Running `npm start`\n\nKey features you could extend:\n1. Add task editing\n2. Local storage persistence\n3. Task completion checkboxes\n4. Due dates and sorting\n5. Categories/tag filtering\n\nWant me to add any of these features next?"
+    },
+    {
+        "timestamp": "2026-06-26T13:50:43.376040",
+        "prompt": "write a code react website",
+        "mode": "code",
+        "code": "# file: App.js\nimport React, { useState } from 'react';\nimport './App.css';\n\nfunction App() {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div className=\"App\">\n      <h1>React Counter App</h1>\n      <div className=\"counter\">\n        <button onClick={() => setCount(count - 1)} className=\"btn\">-</button>\n        <span className=\"count\">{count}</span>\n        <button onClick={() => setCount(count + 1)} className=\"btn\">+</button>\n      </div>\n    </div>\n  );\n}\n\nexport default App;\n\n# file: index.js\nimport React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport App from './App';\nimport './index.css';\n\nconst root = ReactDOM.createRoot(document.getElementById('root'));\nroot.render(\n  <React.StrictMode>\n    <App />\n  </React.StrictMode>\n);\n\n# file: App.css\n.App {\n  text-align: center;\n  padding: 50px;\n  font-family: sans-serif;\n}\n\n.count {\n  margin: 0 20px;\n  font-size: 2em;\n}\n\n.btn {\n  padding: 10px 20px;\n  margin: 0 10px;\n  background: #007bff;\n  color: white;\n  border: none;\n  border-radius: 4px;\n}\n\n.btn:hover {\n  background: #0056b3;\n}",
+        "response": "This is a basic React app with a counter component. It shows:\n\n1. A number display that can be incremented/decremented\n2. React state management using useState\n3. Simple component structure\n4. Basic styling with CSS\n\nTo run it:\n1. Create a React project with `npx create-react-app counter-app`\n2. Replace the files with these ones\n3. Run `npm start`\n\nThe interface has centered text with styled buttons that update the displayed number when clicked. You can expand this by adding a reset button or localStorage persistence."
+    },
+    {
+        "timestamp": "2026-06-26T13:51:42.500815",
+        "prompt": "Who is Steve Jobs?",
+        "mode": "smart",
+        "code": null,
+        "response": "None\nSteve Jobs was a visionary American entrepreneur, widely recognised as the co-founder of Apple Inc. He was instrumental in revolutionising several industries, including personal computers with the Apple II and Macintosh, animated films with Pixar, music with iTunes and the iPod, and mobile phones with the iPhone. He had a profound impact on technology and popular culture, known for his relentless pursuit of perfection and his ability to combine technology with design and user-friendliness."
+    },
+    {
+        "timestamp": "2026-06-26T13:52:34.692166",
+        "prompt": "What else can you do?",
+        "mode": "smart",
+        "code": null,
+        "response": "Well, quite a lot, actually. Think of me as a very capable friend who's spent a lifetime absorbing all sorts of knowledge and learning how to build things properly. So, whether you need a bit of a tricky coding problem sorted out, a script written from scratch, or a system command conjured up, I can whip that into shape for you. I'm rather good at explaining complex ideas clearly, doing a bit of research, or even helping you brainstorm creative concepts. If you've got some data that needs a proper analysis, or just need to understand what's going on with a tricky bit of tech, I can walk you through it. I can also help you write just about anything, from a concise email to a full report, ensuring it's well-structured and makes sense. Basically, if there's a problem to solve, information to find, or something to create or build, I'm here to help you get it done right."
+    },
+    {
+        "timestamp": "2026-06-26T13:53:52.033796",
+        "prompt": "Imagine the India if the Britishers never left and tell me this scenario as a story like you are narrating a novel.",
+        "mode": "fast",
+        "code": null,
+        "response": "<code>\nNone\n</code>\n\n<response>\nImagine India, still under the British Empire, a perpetual dominion, where the Union Jack flutters alongside the Indian flag, a stark reminder of a colonial legacy that never faded. It's a nation where English is the primary language, and the Indian dialects are secondary, a relic of a bygone era. The streets of Delhi, Mumbai, and Kolkata are lined with Victorian architecture, a blend of Gothic and Romanesque styles, as if the British never left. The Indian people, a mix of traditional and western values, navigate the complexities of a culture that's both familiar and foreign. In this India, the railways, introduced by the British, have become an integral part of the transport system, and the Indian Railways have become a symbol of the nation's resilience. The British monarch's portrait still hangs in every government office, a constant reminder of the empire's grip on the nation. It's a world where India's history, culture, and identity are forever intertwined with that of the British Empire, and the question of independence is nothing but a distant memory, a what-if scenario that never came to be."
+    },
+    {
+        "timestamp": "2026-06-26T13:55:14.944318",
+        "prompt": ".",
+        "mode": "smart",
+        "code": null,
+        "response": "Alright, I'm here. What can I help you with today?"
+    },
+    {
+        "timestamp": "2026-06-26T13:55:27.808767",
+        "prompt": "I think we should build today.",
+        "mode": "fast",
+        "code": null,
+        "response": "Sounds good to me, what did you have in mind to build, got a project or idea you've been wanting to get started on"
+    },
+    {
+        "timestamp": "2026-06-26T13:55:51.345535",
+        "prompt": "Do you have access to my system, offline access, format file or write a code by yourself?",
+        "mode": "code",
+        "code": null,
+        "response": "<think>\nOkay, let me figure out how to approach this. The user is asking if I have access to their system or can write code for them. From what I understand, I don't have access to their local system. My main role is to generate code that they can run locally. So, I need to clarify that I can't access their files directly but can provide code they can use.\n\nThey mentioned \"offline access,\" which makes me think they want to run something without an internet connection. I can explain that the code I produce doesn't require online access. Also, the user wants to know if I can format files or write code. I should offer to create code that they can execute on their machine.\n\nI need to make sure the response is clear and helpful. Maybe start by stating that I can't access their system but can provide code. Then, ask what they need, like formatting files or specific code examples. Including a code block with comments might help them see how the code is structured.\n\nWait, the user might want an example. Let's think of a simple script that formats files, like renaming them. But I need to ask for their specific needs first. Maybe offer an example of a Python script that renames files in a directory using the os module. That way, they can see a practical example.\n\nAlso, the response should be friendly and direct, avoiding any technical jargon. Confirm that I can't access their system but can help them write code. Provide a clear example and ask for more details so I can tailor the solution better.\n</think>\n\n<code>\nNone\n</code>\n\nI don't have access to your system or files directly. I can only help you write code that you then run locally on your own machine. What specific code or file manipulation do you need help creating? For example, \"write a Python script to format JSON files in a directory\" or \"create a Bash command to compress old logs.\" Give me the details and I'll generate code that works for you."
+    },
+    {
+        "timestamp": "2026-06-26T14:02:50.116673",
+        "prompt": "Try the Python program for Flask, a backend for a website.",
+        "mode": "code",
+        "code": "from flask import Flask, jsonify\n\napp = Flask(__name__)\n\n@app.route('/')\ndef home():\n    return \"Welcome to the Flask Backend\"\n\n@app.route('/api/data')\ndef get_data():\n    return jsonify({\n        'status': 'success',\n        'data': [1, 2, 3, 4, 5]\n    })\n\nif __name__ == '__main__':\n    app.run(debug=True)",
+        "response": "<think>\nOkay, the user wants a Python Flask backend example. Let me start by recalling the basics. Flask is a lightweight framework, so a simple \"Hello World\" app would be a good starting point.\n\nI need to make sure the code is complete and runs as-is. That means including the necessary imports and setting up a basic route. The user might be new, so I should avoid any unnecessary complexity. \n\nWait, they mentioned it's for a website backend. Maybe they need more than just a hello world. Perhaps adding an example route that returns some JSON data would be helpful, showing how to handle different endpoints. Using flask's jsonify would be useful here.\n\nAlso, I should include instructions on how to run the server. They might not know to use 'flask run' or to set the FLASK_APP environment variable. Adding comments in the code to explain each part could be beneficial without being too verbose.\n\nI need to check if the code handles edge cases. For now, since it's a basic example, maybe not, but keeping it simple. Make sure to mention that they need to install Flask first. Oh right, the response should include the code and a brief note about installation and running the app.\n\nLet me structure the code with two routes: the root for a welcome message and another route like /data that returns JSON. That way, it demonstrates different responses. Also, using the 'debug' mode in development is a good practice to note, but they should turn it off in production. \n\nWait, the user didn't specify any particular features, so sticking to the essentials. Keep the code concise but informative. Make sure to explain the purpose of each part in the response. Alright, putting it all together now.\n</think>\n\n<code>\nfrom flask import Flask, jsonify\n\napp = Flask(__name__)\n\n@app.route('/')\ndef home():\n    return \"Welcome to the Flask Backend\"\n\n@app.route('/api/data')\ndef get_data():\n    return jsonify({\n        'status': 'success',\n        'data': [1, 2, 3, 4, 5]\n    })\n\nif __name__ == '__main__':\n    app.run(debug=True)\n</code>\n<response>\nBasic Flask backend with two routes. Install via `pip install flask`, then run the file. The debug mode enables auto-reload during development, but disable it in production."
+    },
+    {
+        "timestamp": "2026-06-26T14:02:50.117666",
+        "prompt": "Try the Python program for Flask, a backend for a website.",
+        "mode": "code",
+        "code": "from flask import Flask, jsonify\n\napp = Flask(__name__)\n\n@app.route('/')\ndef home():\n    return \"Welcome to the Flask Backend\"\n\n@app.route('/api/data')\ndef get_data():\n    return jsonify({\n        'status': 'success',\n        'data': [1, 2, 3, 4, 5]\n    })\n\nif __name__ == '__main__':\n    app.run(debug=True)",
+        "response": "<think>\nOkay, the user wants a Python Flask backend example. Let me start by recalling the basics. Flask is a lightweight framework, so a simple \"Hello World\" app would be a good starting point.\n\nI need to make sure the code is complete and runs as-is. That means including the necessary imports and setting up a basic route. The user might be new, so I should avoid any unnecessary complexity. \n\nWait, they mentioned it's for a website backend. Maybe they need more than just a hello world. Perhaps adding an example route that returns some JSON data would be helpful, showing how to handle different endpoints. Using flask's jsonify would be useful here.\n\nAlso, I should include instructions on how to run the server. They might not know to use 'flask run' or to set the FLASK_APP environment variable. Adding comments in the code to explain each part could be beneficial without being too verbose.\n\nI need to check if the code handles edge cases. For now, since it's a basic example, maybe not, but keeping it simple. Make sure to mention that they need to install Flask first. Oh right, the response should include the code and a brief note about installation and running the app.\n\nLet me structure the code with two routes: the root for a welcome message and another route like /data that returns JSON. That way, it demonstrates different responses. Also, using the 'debug' mode in development is a good practice to note, but they should turn it off in production. \n\nWait, the user didn't specify any particular features, so sticking to the essentials. Keep the code concise but informative. Make sure to explain the purpose of each part in the response. Alright, putting it all together now.\n</think>\n\n<code>\nfrom flask import Flask, jsonify\n\napp = Flask(__name__)\n\n@app.route('/')\ndef home():\n    return \"Welcome to the Flask Backend\"\n\n@app.route('/api/data')\ndef get_data():\n    return jsonify({\n        'status': 'success',\n        'data': [1, 2, 3, 4, 5]\n    })\n\nif __name__ == '__main__':\n    app.run(debug=True)\n</code>\n<response>\nBasic Flask backend with two routes. Install via `pip install flask`, then run the file. The debug mode enables auto-reload during development, but disable it in production."
+    },
+    {
+        "timestamp": "2026-06-27T12:21:54.427358",
+        "prompt": "what is the value of 5 times 5",
+        "mode": "fast",
+        "code": null,
+        "response": "25"
+    },
+    {
+        "timestamp": "2026-06-27T12:22:07.101853",
+        "prompt": "what is the value of 5 to the power of 5",
+        "mode": "math",
+        "code": null,
+        "response": "Couldn't reach the math model: Error code: 404 - {'error': {'message': 'The model `gemini-2.5-pro` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    },
+    {
+        "timestamp": "2026-06-27T12:22:33.123017",
+        "prompt": "what is the value of 5 to the power of 5",
+        "mode": "math",
+        "code": null,
+        "response": "Couldn't reach the math model: Error code: 404 - {'error': {'message': 'The model `gemini-2.5-pro` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    },
+    {
+        "timestamp": "2026-06-27T12:22:59.805723",
+        "prompt": "what is the value of 5 to the power of 5",
+        "mode": "math",
+        "code": null,
+        "response": "Couldn't reach the math model: Error code: 404 - {'error': {'message': 'The model `gemini-3-pro` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    },
+    {
+        "timestamp": "2026-06-27T12:24:14.156670",
+        "prompt": "what is 5 to the power of 5",
+        "mode": "math",
+        "code": null,
+        "response": "Couldn't reach the math model: Error code: 404 - {'error': {'message': 'The model `gemini-3.1-pro-preview` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    },
+    {
+        "timestamp": "2026-06-27T12:25:11.148587",
+        "prompt": "what is 5 to the pwoer of 5",
+        "mode": "fast",
+        "code": null,
+        "response": "5^5 = 3125"
+    },
+    {
+        "timestamp": "2026-06-27T12:27:06.418430",
+        "prompt": "what is the inetral of x to the power of 5 with limits going from 0 to 5",
+        "mode": "math",
+        "code": null,
+        "response": "Couldn't reach the math model: Error code: 404 - {'error': {'message': 'The model `gemini-2.5-flash-lite` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    },
+    {
+        "timestamp": "2026-06-27T12:28:16.441271",
+        "prompt": "what is the intergral of x to the power of 5 with limit going from zero to 10",
+        "mode": "math",
+        "code": null,
+        "response": "Couldn't reach the math model: Error code: 404 - {'error': {'message': 'The model `gemini-2.5-flash` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    },
+    {
+        "timestamp": "2026-06-27T12:29:51.178314",
+        "prompt": "what is the intergral of x to the power of 5 with limit zero to five",
+        "mode": "math",
+        "code": null,
+        "response": "Couldn't reach the math model: Error code: 404 - {'error': {'message': 'The model `gemini-2.5-flash` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    },
+    {
+        "timestamp": "2026-06-27T12:29:57.295182",
+        "prompt": "what is 5 times 5",
+        "mode": "fast",
+        "code": "print(5 * 5)",
+        "response": "The result is 25."
+    },
+    {
+        "timestamp": "2026-06-27T21:46:33.774202",
+        "prompt": "\u001b[A",
+        "mode": "smart",
+        "code": null,
+        "response": "The input appears incomplete. Please provide the full request."
+    },
+    {
+        "timestamp": "2026-06-27T21:46:50.682467",
+        "prompt": "what is the value of 5 to the power of 6",
+        "mode": "math",
+        "code": null,
+        "response": "Couldn't reach the math model: Error code: 404 - {'error': {'message': 'The model `gemini-2.5-flash` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    },
+    {
+        "timestamp": "2026-06-27T21:56:44.199761",
+        "prompt": "why u suck",
+        "mode": "smart",
+        "code": null,
+        "response": "As an AI, my capabilities are defined by my programming and training data. Any perceived shortcomings relate to the current limitations of my design, which are subject to ongoing development."
+    },
+    {
+        "timestamp": "2026-06-27T22:00:59.248835",
+        "prompt": "do u know maths if i ask any question",
+        "mode": "smart",
+        "code": null,
+        "response": "Yes, I can answer mathematical questions."
+    },
+    {
+        "timestamp": "2026-06-27T22:01:15.797900",
+        "prompt": "what is the value of x if the equation says x + 5 = 10",
+        "mode": "math",
+        "code": null,
+        "response": "Couldn't reach the math model: Error code: 404 - {'error': {'message': 'The model `gemini-2.5-flash` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    },
+    {
+        "timestamp": "2026-06-27T22:02:11.490770",
+        "prompt": "do u know maths",
+        "mode": "smart",
+        "code": null,
+        "response": "Couldn't reach the smart model: Error code: 404 - [{'error': {'code': 404, 'message': 'models/openai/gpt-oss-120b is not found for API version v1main, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}]"
+    },
+    {
+        "timestamp": "2026-06-27T22:03:51.331108",
+        "prompt": "what is the value of x when the equation is x + 5 = 10",
+        "mode": "math",
+        "code": null,
+        "response": "Couldn't reach the math model: Error code: 404 - {'error': {'message': 'The model `gemini-3.5-flash` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    },
+    {
+        "timestamp": "2026-06-27T22:09:40.273736",
+        "prompt": "do u know maths",
+        "mode": "smart",
+        "code": null,
+        "response": "Yes, I can handle mathematical questions."
+    },
+    {
+        "timestamp": "2026-06-27T22:09:55.105951",
+        "prompt": "what is the value of x when the equation is x + 5 = 10",
+        "mode": "math",
+        "code": null,
+        "response": "x = 5"
+    },
+    {
+        "timestamp": "2026-06-27T22:10:25.387649",
+        "prompt": "what is the value of an integral where the variable is x to the power of 5 with limit 10 to 10",
+        "mode": "math",
+        "code": null,
+        "response": "The definite integral of x⁵ from 10 to 10 equals 0, because the integration limits are identical."
+    },
+    {
+        "timestamp": "2026-06-27T22:10:34.083863",
+        "prompt": "good",
+        "mode": "smart",
+        "code": null,
+        "response": "Smart mode enabled."
+    },
+    {
+        "timestamp": "2026-06-27T22:10:45.848702",
+        "prompt": "u did a good job",
+        "mode": "smart",
+        "code": null,
+        "response": "Thank you."
+    },
+    {
+        "timestamp": "2026-06-27T22:10:54.239663",
+        "prompt": "who am i\\",
+        "mode": "smart",
+        "code": null,
+        "response": "I don’t have any information about your identity."
+    },
+    {
+        "timestamp": "2026-06-27T22:11:21.007736",
+        "prompt": "who are you",
+        "mode": "smart",
+        "code": null,
+        "response": "I am an AI assistant built to answer questions and assist with tasks."
+    },
+    {
+        "timestamp": "2026-06-27T22:13:00.753103",
+        "prompt": "hi",
+        "mode": "smart",
+        "code": null,
+        "response": "Hello."
+    },
+    {
+        "timestamp": "2026-06-27T22:13:06.397543",
+        "prompt": "how are you",
+        "mode": "smart",
+        "code": null,
+        "response": "I am functioning as intended."
+    },
+    {
+        "timestamp": "2026-06-27T22:13:20.021496",
+        "prompt": "write a react program for me",
+        "mode": "code",
+        "code": "import React, { useState } from 'react';\n\nfunction App() {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div\n      style={{\n        display: 'flex',\n        flexDirection: 'column',\n        alignItems: 'center',\n        justifyContent: 'center',\n        height: '100vh',\n        fontFamily: 'Arial, sans-serif'\n      }}\n    >\n      <h1>React App</h1>\n      <p>Current Count: {count}</p>\n      <button\n        onClick={() => setCount(count + 1)}\n        style={{\n          padding: '10px 20px',\n          fontSize: '16px',\n          cursor: 'pointer'\n        }}\n      >\n        Increment\n      </button>\n    </div>\n  );\n}\n\nexport default App;",
+        "response": "A simple React app using functional components and the `useState` hook. It renders a button that increments a counter displayed on the screen. To run it, paste this into `src/App.js` (or `App.jsx`) in a project created with Create React App or Vite. The component manages its own state, so clicking the button updates the count without a page reload."
+    },
+    {
+        "timestamp": "2026-06-27T22:13:38.044853",
+        "prompt": "ok good",
+        "mode": "smart",
+        "code": null,
+        "response": "Understood. What would you like to work on next?"
+    },
+    {
+        "timestamp": "2026-06-27T22:13:43.346936",
+        "prompt": "nothing quit",
+        "mode": "smart",
+        "code": null,
+        "response": "Acknowledged. If you need anything later, just let me know."
+    },
+    {
+        "timestamp": "2026-06-27T22:16:21.099846",
+        "prompt": "write a react website with complete css for my portfolio name ashutosh goyal and study engineering",
+        "mode": "code",
+        "code": "# file: src/App.jsx\nimport React, { useState } from 'react';\nimport './App.css';\n\nfunction App() {\n  const [activeSection, setActiveSection] = useState('home');\n\n  const scrollToSection = (id) => {\n    const element = document.getElementById(id);\n    if (element) element.scrollIntoView({ behavior: 'smooth' });\n    setActiveSection(id);\n  };\n\n  return (\n    <div className=\"app-container\">\n      <nav className=\"navbar\">\n        <div className=\"nav-brand\" onClick={() => scrollToSection('home')}>Ashutosh Goyal</div>\n        <ul className=\"nav-links\">\n          <li className={activeSection === 'home' ? 'active' : ''} onClick={() => scrollToSection('home')}>Home</li>\n          <li className={activeSection === 'about' ? 'active' : ''} onClick={() => scrollToSection('about')}>About</li>\n          <li className={activeSection === 'skills' ? 'active' : ''} onClick={() => scrollToSection('skills')}>Skills</li>\n          <li className={activeSection === 'projects' ? 'active' : ''} onClick={() => scrollToSection('projects')}>Projects</li>\n          <li className={activeSection === 'contact' ? 'active' : ''} onClick={() => scrollToSection('contact')}>Contact</li>\n        </ul>\n      </nav>\n\n      <section id=\"home\" className=\"hero\">\n        <div className=\"hero-content\">\n          <h1>Hello, I'm Ashutosh</h1>\n          <h2>Engineering Student & Developer</h2>\n          <p>Building solutions for complex technical challenges.</p>\n          <button onClick={() => scrollToSection('projects')} className=\"cta-button\">View My Work</button>\n        </div>\n      </section>\n\n      <section id=\"about\" className=\"section\">\n        <div className=\"container\">\n          <h2>About Me</h2>\n          <p className=\"about-text\">\n            I am an engineering student passionate about technology and innovation. My academic background allows me to approach software development with a rigorous, analytical mindset. I am focused on clean code, efficient systems, and learning continuous integration methodologies.\n          </p>\n        </div>\n      </section>\n\n      <section id=\"skills\" className=\"section alt-bg\">\n        <div className=\"container\">\n          <h2>Technical Skills</h2>\n          <div className=\"skills-grid\">\n            <div className=\"skill-card\"><h3>Programming</h3><p>Python, C++, JavaScript, SQL</p></div>\n            <div className=\"skill-card\"><h3>Engineering Tools</h3><p>AutoCAD, MATLAB, LTSpice</p></div>\n            <div className=\"skill-card\"><h3>Web Dev</h3><p>React, HTML/CSS, Node.js</p></div>\n            <div className=\"skill-card\"><h3>Methodologies</h3><p>Data Structures, Algorithms, Git</p></div>\n          </div>\n        </div>\n      </section>\n\n      <section id=\"projects\" className=\"section\">\n        <div className=\"container\">\n          <h2>Projects</h2>\n          <div className=\"projects-grid\">\n            <div className=\"project-card\">\n              <h3>Sensor Fusion Algorithm</h3>\n              <p>A C++ simulation integrating accelerometer and gyroscope data to estimate orientation for embedded systems.</p>\n            </div>\n            <div className=\"project-card\">\n              <h3>Portfolio Website</h3>\n              <p>A responsive personal portfolio built with React and modern CSS to showcase academic and professional work.</p>\n            </div>\n            <div className=\"project-card\">\n              <h3>Structural Analyzer</h3>\n              <p>A Python tool for visualizing load distribution and stress points in basic truss structures.</p>\n            </div>\n          </div>\n        </div>\n      </section>\n\n      <section id=\"contact\" className=\"section alt-bg\">\n        <div className=\"container\">\n          <h2>Contact</h2>\n          <p>Open to discussion on engineering topics and collaboration.</p>\n          <a href=\"mailto:ashutosh@example.com\" className=\"contact-button\">Send Email</a>\n        </div>\n      </section>\n\n      <footer className=\"footer\">\n        <p>&copy; {new Date().getFullYear()} Ashutosh Goyal. All rights reserved.</p>\n      </footer>\n    </div>\n  );\n}\n\nexport default App;",
+        "response": "# file: src/App.jsx\nimport React, { useState } from 'react';\nimport './App.css';\n\nfunction App() {\n  const [activeSection, setActiveSection] = useState('home');\n\n  const scrollToSection = (id) => {\n    const element = document.getElementById(id);\n    if (element) element.scrollIntoView({ behavior: 'smooth' });\n    setActiveSection(id);\n  };\n\n  return (\n    <div className=\"app-container\">\n      <nav className=\"navbar\">\n        <div className=\"nav-brand\" onClick={() => scrollToSection('home')}>Ashutosh Goyal</div>\n        <ul className=\"nav-links\">\n          <li className={activeSection === 'home' ? 'active' : ''} onClick={() => scrollToSection('home')}>Home</li>\n          <li className={activeSection === 'about' ? 'active' : ''} onClick={() => scrollToSection('about')}>About</li>\n          <li className={activeSection === 'skills' ? 'active' : ''} onClick={() => scrollToSection('skills')}>Skills</li>\n          <li className={activeSection === 'projects' ? 'active' : ''} onClick={() => scrollToSection('projects')}>Projects</li>\n          <li className={activeSection === 'contact' ? 'active' : ''} onClick={() => scrollToSection('contact')}>Contact</li>\n        </ul>\n      </nav>\n\n      <section id=\"home\" className=\"hero\">\n        <div className=\"hero-content\">\n          <h1>Hello, I'm Ashutosh</h1>\n          <h2>Engineering Student & Developer</h2>\n          <p>Building solutions for complex technical challenges.</p>\n          <button onClick={() => scrollToSection('projects')} className=\"cta-button\">View My Work</button>\n        </div>\n      </section>\n\n      <section id=\"about\" className=\"section\">\n        <div className=\"container\">\n          <h2>About Me</h2>\n          <p className=\"about-text\">\n            I am an engineering student passionate about technology and innovation. My academic background allows me to approach software development with a rigorous, analytical mindset. I am focused on clean code, efficient systems, and learning continuous integration methodologies.\n          </p>\n        </div>\n      </section>\n\n      <section id=\"skills\" className=\"section alt-bg\">\n        <div className=\"container\">\n          <h2>Technical Skills</h2>\n          <div className=\"skills-grid\">\n            <div className=\"skill-card\"><h3>Programming</h3><p>Python, C++, JavaScript, SQL</p></div>\n            <div className=\"skill-card\"><h3>Engineering Tools</h3><p>AutoCAD, MATLAB, LTSpice</p></div>\n            <div className=\"skill-card\"><h3>Web Dev</h3><p>React, HTML/CSS, Node.js</p></div>\n            <div className=\"skill-card\"><h3>Methodologies</h3><p>Data Structures, Algorithms, Git</p></div>\n          </div>\n        </div>\n      </section>\n\n      <section id=\"projects\" className=\"section\">\n        <div className=\"container\">\n          <h2>Projects</h2>\n          <div className=\"projects-grid\">\n            <div className=\"project-card\">\n              <h3>Sensor Fusion Algorithm</h3>\n              <p>A C++ simulation integrating accelerometer and gyroscope data to estimate orientation for embedded systems.</p>\n            </div>\n            <div className=\"project-card\">\n              <h3>Portfolio Website</h3>\n              <p>A responsive personal portfolio built with React and modern CSS to showcase academic and professional work.</p>\n            </div>\n            <div className=\"project-card\">\n              <h3>Structural Analyzer</h3>\n              <p>A Python tool for visualizing load distribution and stress points in basic truss structures.</p>\n            </div>\n          </div>\n        </div>\n      </section>\n\n      <section id=\"contact\" className=\"section alt-bg\">\n        <div className=\"container\">\n          <h2>Contact</h2>\n          <p>Open to discussion on engineering topics and collaboration.</p>\n          <a href=\"mailto:ashutosh@example.com\" className=\"contact-button\">Send Email</a>\n        </div>\n      </section>\n\n      <footer className=\"footer\">\n        <p>&copy; {new Date().getFullYear()} Ashutosh Goyal. All rights reserved.</p>\n      </footer>\n    </div>\n  );\n}\n\nexport default App;\n\n\n# file: src/App.css\n:root {\n  --primary: #2c3e50;\n  --accent: #3498db;\n  --text: #333;\n  --bg: #fff;\n  --alt-bg: #f4f7f6;\n  --nav-height: 60px;\n}\n\n* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n  scroll-behavior: smooth;\n}\n\nbody {\n  font-family"
+    },
+    {
+        "timestamp": "2026-06-27T22:20:06.090439",
+        "prompt": "create a react website with a portfolio name ashutosh goyal and write good things give the code onyl no responser",
+        "mode": "code",
+        "code": "...",
+        "response": "..."
+    },
+    {
+        "timestamp": "2026-06-27T22:20:22.708794",
+        "prompt": "\u001b[A\u001b[B\u001b[B\u001b[B\u001b[A\u001b[A\u001b[D\u001b[D",
+        "mode": "smart",
+        "code": "// src/index.js\nimport React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport App from './App';\nimport './index.css';\n\nconst root = ReactDOM.createRoot(document.getElementById('root'));\nroot.render(\n  <React.StrictMode>\n    <App />\n  </React.StrictMode>\n);\n\n// src/App.jsx\nimport React, { useState } from 'react';\nimport './App.css';\n\nconst sections = ['home', 'about', 'skills', 'projects', 'contact'];\n\nexport default function App() {\n  const [active, setActive] = useState('home');\n\n  const scrollTo = (id) => {\n    const el = document.getElementById(id);\n    if (el) el.scrollIntoView({ behavior: 'smooth' });\n    setActive(id);\n  };\n\n  return (\n    <div className=\"app\">\n      <nav className=\"navbar\">\n        <div className=\"brand\" onClick={() => scrollTo('home')}>\n          Ashutosh Goyal\n        </div>\n        <ul className=\"nav-links\">\n          {sections.map((sec) => (\n            <li\n              key={sec}\n              className={active === sec ? 'active' : ''}\n              onClick={() => scrollTo(sec)}\n            >\n              {sec.charAt(0).toUpperCase() + sec.slice(1)}\n            </li>\n          ))}\n        </ul>\n      </nav>\n\n      <section id=\"home\" className=\"hero\">\n        <h1>Hello, I'm Ashutosh</h1>\n        <h2>Engineering Student & Developer</h2>\n        <p>Passionate about turning ideas into functional, elegant solutions.</p>\n        <button onClick={() => scrollTo('projects')}>See My Work</button>\n      </section>\n\n      <section id=\"about\" className=\"section\">\n        <h2>About Me</h2>\n        <p>\n          I am an engineering student with a strong foundation in problem‑solving\n          and a love for building web applications. My academic projects have\n          sharpened my analytical skills, while personal coding experiments have\n          taught me the value of clean, maintainable code.\n        </p>\n      </section>\n\n      <section id=\"skills\" className=\"section alt\">\n        <h2>Skills</h2>\n        <div className=\"grid\">\n          <div className=\"card\"><h3>Languages</h3><p>Python, C++, JavaScript, TypeScript</p></div>\n          <div className=\"card\"><h3>Web</h3><p>React, HTML5, CSS3, Node.js, Express</p></div>\n          <div className=\"card\"><h3>Tools</h3><p>Git, Docker, Linux, Figma</p></div>\n          <div className=\"card\"><h3>Engineering</h3><p>MATLAB, AutoCAD, Circuit Simulation</p></div>\n        </div>\n      </section>\n\n      <section id=\"projects\" className=\"section\">\n        <h2>Projects</h2>\n        <div className=\"grid\">\n          <div className=\"card\">\n            <h3>Sensor Fusion Simulator</h3>\n            <p>C++ application that merges accelerometer and gyroscope data to estimate orientation for embedded systems.</p>\n          </div>\n          <div className=\"card\">\n            <h3>Portfolio Website</h3>\n            <p>Responsive React site (this one) showcasing academic and personal projects.</p>\n          </div>\n          <div className=\"card\">\n            <h3>Structural Analyzer</h3>\n            <p>Python tool visualizing load distribution and stress points in truss structures.</p>\n          </div>\n        </div>\n      </section>\n\n      <section id=\"contact\" className=\"section alt\">\n        <h2>Contact</h2>\n        <p>Open to collaborations, mentorship, or just a tech chat.</p>\n        <a href=\"mailto:ashutosh@example.com\" className=\"btn\">Email Me</a>\n      </section>\n\n      <footer className=\"footer\">\n        <p>© {new Date().getFullYear()} Ashutosh Goyal. All rights reserved.</p>\n      </footer>\n    </div>\n  );\n}\n\n// src/App.css\n:root {\n  --primary: #2c3e50;\n  --accent: #2980b9;\n  --bg: #f9f9f9;\n  --alt-bg: #eaeaea;\n  --text: #333;\n  --nav-height: 64px;\n  --radius: 6px;\n}\n\n* { box-sizing: border-box; margin:0; padding:0; }\nhtml, body { height:100%; font-family: Arial, Helvetica, sans-serif; background: var(--bg); color: var(--text); scroll-behavior: smooth; }\na { text-decoration:none; color:inherit; }\n\n.app { min-height:100vh; display:flex; flex-direction:column; }\n\n.navbar {\n  position: sticky; top:0; height:var(--nav-height); background:var(--primary);\n  color:#fff; display:flex; align-items:center; justify-content:space-between;\n  padding:0 2rem; z-index:10;\n}\n.brand { font-weight:bold; cursor:pointer; }\n.nav-links { list-style:none; display:flex; gap:1.5rem; }\n.nav-links li { cursor:pointer; padding:0.5rem; border-radius:var(--radius); }\n.nav-links li.active, .nav-links li:hover { background:var(--accent); }\n\n.hero {\n  flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;\n  background:linear-gradient(135deg, var(--primary), var(--accent));\n  color:#fff; text-align:center; padding:4rem 2rem;\n}\n.hero h1 { font-size:2.8rem; margin-bottom:0.5rem; }\n.hero h2 { font-size:1.8rem; margin-bottom:1rem; }\n.hero button { margin-top:1rem; padding:0.8rem 1.5rem; background:#fff; color:var(--primary); border:none; border-radius:var(--radius); cursor:pointer; }\n\n.section { padding:4rem 2rem; }\n.section.alt { background:var(--alt-bg); }\n.section h2 { text-align:center; margin-bottom:2rem; font-size:2rem; }\n\n.grid {\n  display:grid; gap:1.5rem;\n  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));\n}\n.card {\n  background:#fff; border-radius:var(--radius); padding:1.5rem;\n  box-shadow:0 2px 6px rgba(0,0,0,0.1);\n}\n.card h3 { margin-bottom:0.5rem; color:var(--primary); }\n\n.btn {\n  display:inline-block; margin-top:1rem; padding:0.6rem 1.2rem;\n  background:var(--accent); color:#fff; border-radius:var(--radius);\n}\n\n.footer {\n  text-align:center; padding:1rem; background:var(--primary); color:#fff;\n}\n\n// src/index.css\nhtml, body, #root { height:100%; }",
+        "response": "// src/index.js\nimport React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport App from './App';\nimport './index.css';\n\nconst root = ReactDOM.createRoot(document.getElementById('root'));\nroot.render(\n  <React.StrictMode>\n    <App />\n  </React.StrictMode>\n);\n\n// src/App.jsx\nimport React, { useState } from 'react';\nimport './App.css';\n\nconst sections = ['home', 'about', 'skills', 'projects', 'contact'];\n\nexport default function App() {\n  const [active, setActive] = useState('home');\n\n  const scrollTo = (id) => {\n    const el = document.getElementById(id);\n    if (el) el.scrollIntoView({ behavior: 'smooth' });\n    setActive(id);\n  };\n\n  return (\n    <div className=\"app\">\n      <nav className=\"navbar\">\n        <div className=\"brand\" onClick={() => scrollTo('home')}>\n          Ashutosh Goyal\n        </div>\n        <ul className=\"nav-links\">\n          {sections.map((sec) => (\n            <li\n              key={sec}\n              className={active === sec ? 'active' : ''}\n              onClick={() => scrollTo(sec)}\n            >\n              {sec.charAt(0).toUpperCase() + sec.slice(1)}\n            </li>\n          ))}\n        </ul>\n      </nav>\n\n      <section id=\"home\" className=\"hero\">\n        <h1>Hello, I'm Ashutosh</h1>\n        <h2>Engineering Student & Developer</h2>\n        <p>Passionate about turning ideas into functional, elegant solutions.</p>\n        <button onClick={() => scrollTo('projects')}>See My Work</button>\n      </section>\n\n      <section id=\"about\" className=\"section\">\n        <h2>About Me</h2>\n        <p>\n          I am an engineering student with a strong foundation in problem‑solving\n          and a love for building web applications. My academic projects have\n          sharpened my analytical skills, while personal coding experiments have\n          taught me the value of clean, maintainable code.\n        </p>\n      </section>\n\n      <section id=\"skills\" className=\"section alt\">\n        <h2>Skills</h2>\n        <div className=\"grid\">\n          <div className=\"card\"><h3>Languages</h3><p>Python, C++, JavaScript, TypeScript</p></div>\n          <div className=\"card\"><h3>Web</h3><p>React, HTML5, CSS3, Node.js, Express</p></div>\n          <div className=\"card\"><h3>Tools</h3><p>Git, Docker, Linux, Figma</p></div>\n          <div className=\"card\"><h3>Engineering</h3><p>MATLAB, AutoCAD, Circuit Simulation</p></div>\n        </div>\n      </section>\n\n      <section id=\"projects\" className=\"section\">\n        <h2>Projects</h2>\n        <div className=\"grid\">\n          <div className=\"card\">\n            <h3>Sensor Fusion Simulator</h3>\n            <p>C++ application that merges accelerometer and gyroscope data to estimate orientation for embedded systems.</p>\n          </div>\n          <div className=\"card\">\n            <h3>Portfolio Website</h3>\n            <p>Responsive React site (this one) showcasing academic and personal projects.</p>\n          </div>\n          <div className=\"card\">\n            <h3>Structural Analyzer</h3>\n            <p>Python tool visualizing load distribution and stress points in truss structures.</p>\n          </div>\n        </div>\n      </section>\n\n      <section id=\"contact\" className=\"section alt\">\n        <h2>Contact</h2>\n        <p>Open to collaborations, mentorship, or just a tech chat.</p>\n        <a href=\"mailto:ashutosh@example.com\" className=\"btn\">Email Me</a>\n      </section>\n\n      <footer className=\"footer\">\n        <p>© {new Date().getFullYear()} Ashutosh Goyal. All rights reserved.</p>\n      </footer>\n    </div>\n  );\n}\n\n// src/App.css\n:root {\n  --primary: #2c3e50;\n  --accent: #2980b9;\n  --bg: #f9f9f9;\n  --alt-bg: #eaeaea;\n  --text: #333;\n  --nav-height: 64px;\n  --radius: 6px;\n}\n\n* { box-sizing: border-box; margin:0; padding:0; }\nhtml, body { height:100%; font-family: Arial, Helvetica, sans-serif; background: var(--bg); color: var(--text); scroll-behavior: smooth; }\na { text-decoration:none; color:inherit; }\n\n.app { min-height:100vh; display:flex; flex-direction:column; }\n\n.navbar {\n  position: sticky; top:0; height:var(--nav-height); background:var(--primary);\n  color:#fff; display:flex; align-items:center; justify-content:space-between;\n  padding:0 2rem; z-index:10;\n}\n.brand { font-weight:bold; cursor:pointer; }\n.nav-links { list-style:none; display:flex; gap:1.5rem; }\n.nav-links li { cursor:pointer; padding:0.5rem; border-radius:var(--radius); }\n.nav-links li.active, .nav-links li:hover { background:var(--accent); }\n\n.hero {\n  flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;\n  background:linear-gradient(135deg, var(--primary), var(--accent));\n  color:#fff; text-align:center; padding:4rem 2rem;\n}\n.hero h1 { font-size:2.8rem; margin-bottom:0.5rem; }\n.hero h2 { font-size:1.8rem; margin-bottom:1rem; }\n.hero button { margin-top:1rem; padding:0.8rem 1.5rem; background:#fff; color:var(--primary); border:none; border-radius:var(--radius); cursor:pointer; }\n\n.section { padding:4rem 2rem; }\n.section.alt { background:var(--alt-bg); }\n.section h2 { text-align:center; margin-bottom:2rem; font-size:2rem; }\n\n.grid {\n  display:grid; gap:1.5rem;\n  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));\n}\n.card {\n  background:#fff; border-radius:var(--radius); padding:1.5rem;\n  box-shadow:0 2px 6px rgba(0,0,0,0.1);\n}\n.card h3 { margin-bottom:0.5rem; color:var(--primary); }\n\n.btn {\n  display:inline-block; margin-top:1rem; padding:0.6rem 1.2rem;\n  background:var(--accent); color:#fff; border-radius:var(--radius);\n}\n\n.footer {\n  text-align:center; padding:1rem; background:var(--primary); color:#fff;\n}\n\n// src/index.css\nhtml, body, #root { height:100%; }\n\n\nThe code provides a minimal yet polished React portfolio. It includes an entry point (index.js), a single-page App component with navigation that smoothly scrolls to sections, and a CSS file that defines a clean visual style using CSS variables, responsive grids, and a sticky navbar. Sections cover Home, About, Skills, Projects, and Contact, each styled consistently. The layout is fully responsive without external libraries, making it ready to run after creating a React project (e.g., with Create React App) and placing these files accordingly. Adjust the email link and any personal details as needed."
+    },
+    {
+        "timestamp": "2026-06-27T22:21:16.103895",
+        "prompt": "create a react website for portfolio with ashutosh goyal as name and some details and feature it should be as modern as possible and dont add external css only internal css",
+        "mode": "code",
+        "code": null,
+        "response": "import React, { useEffect, useState } from 'react';\n\nconst styles = {\n  global: {\n    fontFamily: \"'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif\",\n    margin: 0,\n    padding: 0,\n    backgroundColor: '#0b0d17',\n    color: '#cdd6f4',\n    lineHeight: 1.6,\n  },\n  container: {\n    maxWidth: '1200px',\n    margin: '0 auto',\n    padding: '0 2rem',\n  },\n  nav: {\n    position: 'fixed',\n    top: 0,\n    width: '100%',\n    padding: '1.5rem 0',\n    background: 'rgba(11, 13, 23, 0.85)',\n    backdropFilter: 'blur(12px)',\n    zIndex: 100,\n    borderBottom: '1px solid rgba(255,255,255,0.05)',\n    display: 'flex',\n    justifyContent: 'space-between',\n    alignItems: 'center',\n    maxWidth: '1200px',\n    margin: '0 auto',\n    boxSizing: 'border-box',\n    paddingLeft: '2rem',\n    paddingRight: '2rem',\n  },\n  logo: {\n    color: '#89b4fa',\n    fontWeight: 700,\n    fontSize: '1.5rem',\n    letterSpacing: '-0.05em',\n    cursor: 'pointer',\n  },\n  links: {\n    display: 'flex',\n    gap: '2rem',\n    listStyle: 'none',\n    margin: 0,\n    padding: 0,\n  },\n  link: {\n    color: '#a6adc8',\n    textDecoration: 'none',\n    fontSize: '0.95rem',\n    fontWeight: 500,\n    transition: 'color 0.3s ease',\n    cursor: 'pointer',\n  },\n  hero: {\n    height: '100vh',\n    display: 'flex',\n    alignItems: 'center',\n    justifyContent: 'flex-start',\n    position: 'relative',\n    overflow: 'hidden',\n  },\n  heroContent: {\n    zIndex: 10,\n    maxWidth: '600px',\n  },\n  tag: {\n    color: '#89b4fa',\n    fontWeight: 600,\n    marginBottom: '1rem',\n    display: 'block',\n    fontSize: '0.9rem',\n    textTransform: 'uppercase',\n    letterSpacing: '0.05em',\n  },\n  h1: {\n    fontSize: '4.5rem',\n    fontWeight: 800,\n    lineHeight: 1.1,\n    color: '#ffffff',\n    marginBottom: '1.5rem',\n  },\n  h2: {\n    fontSize: '1.5rem',\n    color: '#a6adc8',\n    marginTop: 0,\n    fontWeight: 400,\n    marginBottom: '2rem',\n  },\n  btn: {\n    padding: '1rem 2rem',\n    background: 'linear-gradient(135deg, #89b4fa, #89dceb)',\n    color: '#0b0d17',\n    border: 'none',\n    borderRadius: '4px',\n    fontWeight: 700,\n    fontSize: '1rem',\n    cursor: 'pointer',\n    transition: 'transform 0.2s ease, box-shadow 0.2s ease',\n    boxShadow: '0 10px 20px -10px rgba(137, 180, 250, 0.5)',\n  },\n  section: {\n    padding: '8rem 0',\n  },\n  sectionTitle: {\n    fontSize: '2rem',\n    fontWeight: 700,\n    color: '#ffffff',\n    marginBottom: '4rem',\n    position: 'relative',\n    display"
+    },
+    {
+        "timestamp": "2026-06-27T23:13:06.967482",
+        "prompt": "write a html css js code",
+        "mode": "code",
+        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Interactive Page</title>\n    <style>\n        body {\n            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\n            margin: 0;\n            padding: 20px;\n            background-color: #f4f4f4;\n            color: #333;\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n            justify-content: center;\n            min-height: 100vh;\n        }\n\n        .container {\n            background-color: #ffffff;\n            padding: 30px;\n            border-radius: 8px;\n            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\n            text-align: center;\n            max-width: 600px;\n            width: 100%;\n        }\n\n        h1 {\n            color: #2c3e50;\n            margin-bottom: 15px;\n        }\n\n        p {\n            font-size: 1.1em;\n            line-height: 1.6;\n            margin-bottom: 25px;\n        }\n\n        button {\n            background-color: #007bff;\n            color: white;\n            padding: 12px 25px;\n            border: none;\n            border-radius: 5px;\n            cursor: pointer;\n            font-size: 1em;\n            transition: background-color 0.3s ease;\n        }\n\n        button:hover {\n            background-color: #0056b3;\n        }\n\n        button:active {\n            background-color: #004085;\n        }\n    </style>\n</head>\n<body>\n    <div class=\"container\">\n        <h1>Welcome to a Simple Web Page</h1>\n        <p id=\"dynamicText\">This is some initial text. Click the button to change it.</p>\n        <button id=\"changeTextButton\">Change Text</button>\n    </div>\n\n    <script>\n        document.addEventListener('DOMContentLoaded', () => {\n            const button = document.getElementById('changeTextButton');\n            const paragraph = document.getElementById('dynamicText');\n            let clickCount = 0; // Tracks how many times the button has been clicked\n\n            button.addEventListener('click', () => {\n                clickCount++;\n                if (clickCount === 1) {\n                    paragraph.textContent = 'The text has been updated! This demonstrates basic JavaScript interaction.';\n                    button.textContent = 'Click Again!';\n                } else if (clickCount === 2) {\n                    paragraph.textContent = 'Another click, another update. JavaScript can make your pages dynamic.';\n                    button.textContent = 'Reset Text';\n                } else {\n                    paragraph.textContent = 'This is some initial text. Click the button to change it.';\n                    button.textContent = 'Change Text';\n                    clickCount = 0; // Reset the count\n                }\n            });\n        });\n    </script>\n</body>\n</html>",
+        "response": "I have provided a single HTML file that encapsulates the structure, styling, and interactive scripting. This approach is suitable for simpler pages or demonstrations, keeping all related components within one file.\n\nThe HTML establishes a basic page layout including a `div` container for content, a heading, a paragraph with a unique ID, and a button, also with a unique ID.\n\nThe CSS is embedded directly within a `<style>` block in the HTML head. It provides a clean, modern aesthetic for the page, container, text, and button, including hover and active states for user feedback.\n\nThe JavaScript is embedded within a `<script>` block at the end of the `body`. It ensures that the Document Object Model (DOM) is fully loaded before attempting to access elements, preventing potential errors. It retrieves references to the button and paragraph elements by their IDs. An event listener is attached to the button, configured to respond to 'click' events. When the button is clicked, a counter increments, and the text content of the paragraph element is updated dynamically based on the click count, cycling through a few messages before resetting.\n\nTo use this, save the provided code as an HTML file (e.g., `index.html`) and open it in any web browser. The button's functionality will be immediately available. This setup demonstrates fundamental client-side web development practices."
+    }
+]
