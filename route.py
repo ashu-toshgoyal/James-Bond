@@ -43,27 +43,73 @@ OUTPUT_ROOT = "outputs"  # directory where orchestrator responses are saved
 #  HELPERS
 # ─────────────────────────────────────────────────────────────────────────────
 
-def delete_after(filepath: str, delay_seconds: int = 3 * 60 * 60) -> None:
-    """Spawn a detached background process that deletes `filepath` after
-    `delay_seconds` (default 3 hours = 10 800 s)."""
-    script = (
-        f"import time, os; "
-        f"time.sleep({delay_seconds}); "
-        f"os.path.exists(r'{filepath}') and os.remove(r'{filepath}')"
-    )
+def delete_after(filepath: str, delay_seconds: int = 1*60*60) -> None:
+    """Spawn a detached background process that permanently deletes `filepath`
+    after `delay_seconds` (default 3 hours = 10 800 s), including purging it
+    from the OS Recycle Bin / Trash if a copy ended up there."""
+    script = f"""
+import time, os, sys, glob
+
+time.sleep({delay_seconds})
+
+target = r'{filepath}'
+fname = os.path.basename(target)
+
+# 1. Delete the actual file if it still exists
+if os.path.exists(target):
+    os.remove(target)
+
+# 2. Purge any matching copy from the OS trash/recycle bin
+try:
+    if sys.platform.startswith('win'):
+        # Windows Recycle Bin (per drive, in $Recycle.Bin)
+        import string
+        for drive in string.ascii_uppercase:
+            bin_path = f"{{drive}}:\\\\$Recycle.Bin"
+            if os.path.isdir(bin_path):
+                for root, dirs, files in os.walk(bin_path):
+                    for f in files:
+                        if f == fname or fname in f:
+                            try:
+                                os.remove(os.path.join(root, f))
+                            except Exception:
+                                pass
+    elif sys.platform == 'darwin':
+        # macOS Trash
+        trash_dir = os.path.expanduser('~/.Trash')
+        for f in glob.glob(os.path.join(trash_dir, fname + '*')):
+            try:
+                os.remove(f)
+            except Exception:
+                pass
+    else:
+        # Linux Trash (freedesktop.org spec)
+        trash_dir = os.path.expanduser('~/.local/share/Trash/files')
+        trash_info = os.path.expanduser('~/.local/share/Trash/info')
+        for f in glob.glob(os.path.join(trash_dir, fname + '*')):
+            try:
+                os.remove(f)
+                info_file = os.path.join(trash_info, os.path.basename(f) + '.trashinfo')
+                if os.path.exists(info_file):
+                    os.remove(info_file)
+            except Exception:
+                pass
+except Exception:
+    pass
+"""
     subprocess.Popen(
         [sys.executable, "-c", script],
         start_new_session=True,
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
     )
-    print(f"Scheduled deletion of {filepath} in {delay_seconds / 3600:.1f} hour(s).")
+    print(f"Scheduled permanent deletion (incl. trash purge) of {filepath} in {delay_seconds/3600 :.1f} hour(s).")
 
 
 def _call_orchestrator(client: OpenAI, system_prompt: str, user_payload: str) -> str | None:
     """Single call to the orchestrator model. Returns raw content or None."""
     resp = client.chat.completions.create(
-        model="openai/gpt-oss-120b",
+        model="llama-3.3-70b-versatile",
         messages=[
             {"role": "system",  "content": system_prompt},
             {"role": "user",    "content": user_payload},
