@@ -35,8 +35,8 @@ from utility.text_weight import scoring
 
 load_dotenv()
 
-MAX_RETRIES = 3          # attempts to get valid JSON before falling back
-OUTPUT_ROOT = "outputs"  # directory where orchestrator responses are saved
+MAX_RETRIES = 3          
+OUTPUT_ROOT = "outputs"  
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -106,6 +106,33 @@ except Exception:
     print(f"Scheduled permanent deletion (incl. trash purge) of {filepath} in {delay_seconds/3600 :.1f} hour(s).")
 
 
+def save_output(parsed_response: dict | None, raw_content: str) -> str:
+    """
+    Save orchestrator response to outputs/ folder.
+    Returns the path of the saved file — JSON if parse succeeded, raw text if not.
+    Schedules auto-deletion only on successful JSON save.
+    """
+    os.makedirs(OUTPUT_ROOT, exist_ok=True)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    if parsed_response is not None:
+        output_path = os.path.join(OUTPUT_ROOT, f"boss_response_{timestamp}.json")
+        with open(output_path, "w", encoding="utf-8") as f:
+            json.dump(parsed_response, f, indent=2, ensure_ascii=False)
+        print(f"\nSaved orchestrator response to: {output_path}")
+        delete_after(output_path)
+        return output_path
+    else:
+        fallback_path = os.path.join(OUTPUT_ROOT, f"boss_response_{timestamp}_raw.txt")
+        with open(fallback_path, "w", encoding="utf-8") as f:
+            f.write(raw_content)
+        print(
+            f"\nAll {MAX_RETRIES} attempts returned invalid JSON. "
+            f"Saved raw response to: {fallback_path}\n"
+            f"(Raw file will NOT be auto-deleted — inspect and rerun manually.)"
+        )
+        return fallback_path
+
+
 def _call_orchestrator(client: OpenAI, system_prompt: str, user_payload: str) -> str | None:
     """Single call to the orchestrator model. Returns raw content or None."""
     resp = client.chat.completions.create(
@@ -113,9 +140,7 @@ def _call_orchestrator(client: OpenAI, system_prompt: str, user_payload: str) ->
         messages=[
             {"role": "system",  "content": system_prompt},
             {"role": "user",    "content": user_payload},
-        ],
-        # 8 192 tokens gives headroom for a detailed multi-task breakdown.
-        # `max_tokens` is deprecated on Groq — use `max_completion_tokens`.
+        ],              
         max_completion_tokens=8192,
         temperature=0.0,                        # fully deterministic
         response_format={"type": "json_object"} # guarantees valid JSON output
@@ -172,12 +197,7 @@ def _fetch_with_retry(
             if attempt == max_retries:
                 raise
 
-    return None, raw  # all retries failed, return raw for fallback save
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-#  PROMPT
-# ─────────────────────────────────────────────────────────────────────────────
+    return None, raw  
 
 example_prompt = (
     "hey can u build me the entire system from scratch, i need a full app that's "
@@ -261,28 +281,10 @@ You must return your analysis strictly as a valid, parsable JSON object. Do not 
 }
 ```"""
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-#  CLIENT
-# ─────────────────────────────────────────────────────────────────────────────
-
 client = OpenAI(
     api_key=os.getenv("GROQ_API_KEY"),
     base_url="https://api.groq.com/openai/v1",
 )
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-#  SCORING  — score both original and rewrite; use the max
-#
-#  Root cause of the original "sometimes lowest score / worst JSON" bug:
-#  `rewrite_prompt` is a non-deterministic LLM call. On some runs it might
-#  aggressively condense "build the entire distributed system..." (238 words,
-#  score ≈310) down to a 12-word summary (score ≈24). The orchestrator then
-#  sees a trivially low global score and generates a shallow, minimal plan.
-#
-#  Fix: always anchor the score to whichever representation scores higher.
-# ─────────────────────────────────────────────────────────────────────────────
 
 rewritten_prompt = rewrite_prompt(example_prompt)
 
@@ -291,11 +293,6 @@ rewritten_score = scoring(rewritten_prompt)
 calculated_score = max(original_score, rewritten_score)
 
 print(f"[SCORE] original={original_score}  rewritten={rewritten_score}  using={calculated_score}")
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-#  RUN THE ORCHESTRATOR
-# ─────────────────────────────────────────────────────────────────────────────
 
 user_payload = f"""
 Please process and decompose the following project parameters:
@@ -307,31 +304,5 @@ Pre-calculated Score: {calculated_score}
 
 parsed_response, raw_content = _fetch_with_retry(client, boss_orchestrator_prompt, user_payload)
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-#  SAVE OUTPUT
-# ─────────────────────────────────────────────────────────────────────────────
-
-os.makedirs(OUTPUT_ROOT, exist_ok=True)
-timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-
-if parsed_response is not None:
-    output_path = os.path.join(OUTPUT_ROOT, f"boss_response_{timestamp}.json")
-    with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(parsed_response, f, indent=2, ensure_ascii=False)
-    print(f"\nSaved orchestrator response to: {output_path}")
-
-    # Only schedule deletion after a confirmed successful JSON save.
-    # The original code scheduled deletion even when the JSON was broken and
-    # only a raw fallback was saved — meaning good data was still deleted.
-    delete_after(output_path)
-
-else:
-    fallback_path = os.path.join(OUTPUT_ROOT, f"boss_response_{timestamp}_raw.txt")
-    with open(fallback_path, "w", encoding="utf-8") as f:
-        f.write(raw_content)
-    print(
-        f"\nAll {MAX_RETRIES} attempts returned invalid JSON. "
-        f"Saved raw response to: {fallback_path}\n"
-        f"(Raw file will NOT be auto-deleted — inspect and rerun manually.)"
-    )
+output_file = save_output(parsed_response, raw_content)
+print(f"\nDone. Output at: {output_file}")
